@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+  <title>PlantPro — AI დიაგნოზი</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo-row">
+        <div class="sb-leaf">
+          <svg viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,.88)" stroke-width="1.6">
+            <path d="M10 18C10 18 3 12 3 7C3 4 6.5 2 10 2C13.5 2 17 4 17 7C17 12 10 18 10 18Z"/>
+            <path d="M10 18C10 12 10 5 10 2" stroke-width="1" stroke-dasharray="2.5 2"/>
+          </svg>
+        </div>
+        <div><div class="sb-title">PlantPro</div><div class="sb-edition">Business Edition</div></div>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sec">მთავარი</div>
+      <a class="sb-link" href="index.html"><span class="sb-ico">🪴</span>მცენარეები</a>
+      <a class="sb-link" href="calendar.html"><span class="sb-ico">📅</span>კალენდარი</a>
+      <a class="sb-link" href="supplies.html"><span class="sb-ico">🛒</span>მარაგი</a>
+      <div class="sb-sec">ბიზნესი</div>
+      <a class="sb-link" href="finance.html"><span class="sb-ico">💰</span>ფინანსები</a>
+      <a class="sb-link" href="treatments.html"><span class="sb-ico">🔬</span>მოვლა</a>
+      <a class="sb-link" href="sales.html"><span class="sb-ico">📦</span>რეალიზაცია</a>
+      <div class="sb-sec">სხვა</div>
+      <a class="sb-link" href="advisor.html"><span class="sb-ico">💊</span>მრჩეველი</a>
+      <a class="sb-link active" href="ai.html"><span class="sb-ico">🤖</span>AI დიაგნოზი</a>
+    </nav>
+    <div class="sb-foot">
+      <select class="sb-select" id="sb-scale">
+        <option value="large">🏭 დიდი სანერგე</option>
+        <option value="small">🏡 მცირე სანერგე</option>
+        <option value="personal">🌱 პირადი</option>
+      </select>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="screen">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">AI დიაგნოზი</h1>
+          <p class="page-sub">ფოტო → Claude AI → პასუხი ქართულად</p>
+        </div>
+      </div>
+
+      <div class="list-container">
+
+        <!-- API KEY CARD -->
+        <div class="card">
+          <div class="card-header">⚙️ API გასაღები</div>
+          <div class="form-group">
+            <label class="form-label">Anthropic API Key</label>
+            <input class="form-input" type="password" id="api-key" placeholder="sk-ant-api03-...">
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <button class="btn-primary" id="btn-save-key" style="padding:10px 18px;font-size:13px">შენახვა</button>
+            <button class="btn-secondary" id="btn-clear-key">🗑️ წაშლა</button>
+          </div>
+          <p class="form-hint">
+            🔒 მხოლოდ შენს ბრაუზერში ინახება · არ გაიგზავნება სხვაგან ·
+            <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>
+          </p>
+        </div>
+
+        <!-- DIAGNOSIS CARD -->
+        <div class="card">
+          <div class="card-header">🔍 დიაგნოზი</div>
+
+          <!-- IMAGE DROP -->
+          <div class="image-drop-zone" id="drop-zone">
+            <input type="file" id="image-input" accept="image/*">
+            <div id="drop-placeholder">
+              <div style="font-size:42px;margin-bottom:10px">🌿</div>
+              <p style="color:var(--ink3);font-size:14px;font-weight:500">ფოტო ჩამოათრიე ან დააჭირე</p>
+              <p style="color:var(--ink3);font-size:12px;margin-top:4px">JPG, PNG, WEBP</p>
+            </div>
+            <img id="preview-img" style="display:none;max-width:100%;max-height:220px;border-radius:10px;pointer-events:none">
+            <button class="btn-secondary" id="btn-clear-img" style="display:none;margin-top:10px">✕ ფოტოს წაშლა</button>
+          </div>
+
+          <div class="form-group" style="margin-top:14px">
+            <label class="form-label">სიმპტომი (სურ.)</label>
+            <textarea class="form-input form-textarea" id="ai-symptoms" rows="2"
+              placeholder="მაგ: ფოთლები ყვითლდება, ლაქები ჩნდება, ჭინჭარი..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">მცენარე (სურ.)</label>
+            <select class="form-input form-select" id="ai-plant">
+              <option value="">— კონტექსტი: შეარჩიე —</option>
+            </select>
+          </div>
+
+          <button class="btn-save" id="btn-run-ai">🔍 AI ანალიზი</button>
+
+          <!-- AI RESPONSE -->
+          <div class="ai-response" id="ai-response" style="display:none"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <nav class="tabbar">
+      <a class="tbi" href="index.html"><span class="tbi-ico">🪴</span><span class="tbi-lbl">მცენ.</span></a>
+      <a class="tbi" href="calendar.html"><span class="tbi-ico">📅</span><span class="tbi-lbl">კალ.</span></a>
+      <div class="fab-wrap"><a class="fab" href="index.html" style="display:grid;place-items:center;text-decoration:none;color:#fff;font-size:26px">🪴</a></div>
+      <a class="tbi" href="supplies.html"><span class="tbi-ico">🛒</span><span class="tbi-lbl">მარ.</span></a>
+      <a class="tbi" href="finance.html"><span class="tbi-ico">💰</span><span class="tbi-lbl">ფინ.</span></a>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast">
+    <div class="toast-bar" id="toast-bar"></div>
+    <span class="toast-text" id="toast-text">—</span>
+  </div>
+
+  <script src="data/plantdb.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/init.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+  <title>PlantPro — მრჩეველი</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo-row">
+        <div class="sb-leaf">
+          <svg viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,.88)" stroke-width="1.6">
+            <path d="M10 18C10 18 3 12 3 7C3 4 6.5 2 10 2C13.5 2 17 4 17 7C17 12 10 18 10 18Z"/>
+            <path d="M10 18C10 12 10 5 10 2" stroke-width="1" stroke-dasharray="2.5 2"/>
+          </svg>
+        </div>
+        <div><div class="sb-title">PlantPro</div><div class="sb-edition">Business Edition</div></div>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sec">მთავარი</div>
+      <a class="sb-link" href="index.html"><span class="sb-ico">🪴</span>მცენარეები</a>
+      <a class="sb-link" href="calendar.html"><span class="sb-ico">📅</span>კალენდარი</a>
+      <a class="sb-link" href="supplies.html"><span class="sb-ico">🛒</span>მარაგი</a>
+      <div class="sb-sec">ბიზნესი</div>
+      <a class="sb-link" href="finance.html"><span class="sb-ico">💰</span>ფინანსები</a>
+      <a class="sb-link" href="treatments.html"><span class="sb-ico">🔬</span>მოვლა</a>
+      <a class="sb-link" href="sales.html"><span class="sb-ico">📦</span>რეალიზაცია</a>
+      <div class="sb-sec">სხვა</div>
+      <a class="sb-link active" href="advisor.html"><span class="sb-ico">💊</span>მრჩეველი</a>
+      <a class="sb-link" href="ai.html"><span class="sb-ico">🤖</span>AI დიაგნოზი</a>
+    </nav>
+    <div class="sb-foot">
+      <select class="sb-select" id="sb-scale">
+        <option value="large">🏭 დიდი სანერგე</option>
+        <option value="small">🏡 მცირე სანერგე</option>
+        <option value="personal">🌱 პირადი</option>
+      </select>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="screen">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">მრჩეველი</h1>
+          <p class="page-sub">პრეპარატები · სად შეიძინო · რეკომ.</p>
+        </div>
+      </div>
+
+      <!-- COMING SOON -->
+      <div class="coming-soon-card">
+        <div class="coming-soon-icon">🏪</div>
+        <h2 class="coming-soon-title">მალე გაიხსნება</h2>
+        <p class="coming-soon-text">
+          მრჩეველი გამოგირჩევს სწორ პრეპარატს ან სასუქს — და გეტყვის სად შეიძინო ქართულ ბაზარზე.
+          პარტნიორი მაღაზიები მუშაობაშია.
+        </p>
+        <span class="coming-soon-tag">🔔 მალე</span>
+      </div>
+
+      <!-- PLACEHOLDER FEATURES -->
+      <div class="section-label">📋 იგეგმება</div>
+      <div class="list-container">
+
+        <div class="list-item">
+          <div class="list-item-icon" style="background:#EAF2E9">🌿</div>
+          <div class="list-item-body">
+            <div class="list-item-title">სასუქის კალკულატორი</div>
+            <div class="list-item-sub">
+              <span>მცენარის ტიპი → სწორი NPK → დოზა</span>
+            </div>
+          </div>
+          <span class="badge badge-gray">მალე</span>
+        </div>
+
+        <div class="list-item">
+          <div class="list-item-icon" style="background:#FEF2F4">💊</div>
+          <div class="list-item-body">
+            <div class="list-item-title">პრეპარატების ბაზა</div>
+            <div class="list-item-sub">
+              <span>ინსექტიციდი · ფუნგიციდი · ჰერბ.</span>
+            </div>
+          </div>
+          <span class="badge badge-gray">მალე</span>
+        </div>
+
+        <div class="list-item">
+          <div class="list-item-icon" style="background:#FEF8EE">🏪</div>
+          <div class="list-item-body">
+            <div class="list-item-title">ქართ. მაღაზიების სია</div>
+            <div class="list-item-sub">
+              <span>Agroshop · სოფ. მეურნ. · ონლაინ</span>
+            </div>
+          </div>
+          <span class="badge badge-gray">მალე</span>
+        </div>
+
+        <div class="list-item">
+          <div class="list-item-icon" style="background:#EEF4FD">📊</div>
+          <div class="list-item-body">
+            <div class="list-item-title">სეზონური გრაფიკი</div>
+            <div class="list-item-sub">
+              <span>კახეთის კლიმ. → მოვლის კალ.</span>
+            </div>
+          </div>
+          <span class="badge badge-gray">მალე</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <nav class="tabbar">
+      <a class="tbi" href="index.html"><span class="tbi-ico">🪴</span><span class="tbi-lbl">მცენ.</span></a>
+      <a class="tbi" href="calendar.html"><span class="tbi-ico">📅</span><span class="tbi-lbl">კალ.</span></a>
+      <div class="fab-wrap"><a class="fab" href="index.html" style="display:grid;place-items:center;text-decoration:none;color:#fff;font-size:26px">🪴</a></div>
+      <a class="tbi" href="supplies.html"><span class="tbi-ico">🛒</span><span class="tbi-lbl">მარ.</span></a>
+      <a class="tbi" href="finance.html"><span class="tbi-ico">💰</span><span class="tbi-lbl">ფინ.</span></a>
+    </nav>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/init.js"></script>
+
+</body>
+</html>

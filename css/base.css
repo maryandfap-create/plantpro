@@ -1,0 +1,174 @@
+/* ════════════════════════════════════════
+   BASE.CSS — Variables · Reset · Typography
+   PlantPro Business Edition
+════════════════════════════════════════ */
+
+/* ── DESIGN TOKENS ── */
+:root {
+  /* Verde palette */
+  --cream:        #EEEAE3;
+  --cream-2:      #E4DFD7;
+  --cream-3:      #D5CFC6;
+  --white:        #FFFFFF;
+
+  /* Forest greens */
+  --forest:       #3D5A45;
+  --forest-2:     #4E7058;
+  --forest-3:     #5E8468;
+  --sage:         #8FAF8F;
+  --sage-lt:      #C5D8C2;
+  --sage-bg:      #EAF2E9;
+
+  /* Ink */
+  --ink:          #1C1C1A;
+  --ink-2:        #46443F;
+  --ink-3:        #8A8680;
+
+  /* Plant type accent colors (Yellow App inspired) */
+  --acc-flower:   #F2A7B0;
+  --acc-flower-lt:#FEF2F4;
+  --acc-fruit:    #F5C07A;
+  --acc-fruit-lt: #FEF8EE;
+  --acc-cactus:   #8FC98F;
+  --acc-cactus-lt:#EEF8EE;
+  --acc-indoor:   #A8C4E0;
+  --acc-indoor-lt:#EEF4FD;
+
+  /* Semantic */
+  --red:          #C0392B;
+  --red-bg:       #FDECEA;
+  --gold:         #8A6500;
+  --gold-bg:      #FFF7E0;
+  --green-dark:   #2A6A2A;
+  --green-bg:     #EBF5EB;
+
+  /* Borders & shadows */
+  --border:       rgba(0, 0, 0, 0.07);
+  --border-2:     rgba(0, 0, 0, 0.12);
+  --shadow-xs:    0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-sm:    0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md:    0 4px 24px rgba(0, 0, 0, 0.10);
+  --shadow-lg:    0 8px 40px rgba(0, 0, 0, 0.14);
+  --shadow-forest:0 4px 20px rgba(61, 90, 69, 0.30);
+
+  /* Radius */
+  --r-sm:   8px;
+  --r:      14px;
+  --r-lg:   20px;
+
+  /* Layout */
+  --sidebar-w: 248px;
+  --tab-h:     68px;
+
+  /* Fonts */
+  --font:   'Noto Sans Georgian', sans-serif;
+  --font-d: 'Playfair Display', serif;
+
+  /* Transitions */
+  --ease:   cubic-bezier(0.2, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.32, 1, 0.5, 1);
+}
+
+/* ── RESET ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  height: 100%;
+  font-size: 15px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  height: 100%;
+  min-height: 100dvh;
+  font-family: var(--font);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+select,
+textarea {
+  font-family: var(--font);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── SCROLLBARS ── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--cream-3);
+  border-radius: 2px;
+}
+
+/* ── TYPOGRAPHY UTILITIES ── */
+.t-display {
+  font-family: var(--font-d);
+  font-style: italic;
+  font-weight: 700;
+}
+
+.t-serif {
+  font-family: var(--font-d);
+  font-weight: 700;
+}
+
+/* ── COLOR UTILITIES ── */
+.green      { color: var(--forest); }
+.darkgreen  { color: var(--green-dark); }
+.red        { color: var(--red); }
+.gold       { color: var(--gold); }
+.muted      { color: var(--ink-3); }
+
+/* ── ANIMATION KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(105%); }
+  to   { transform: translateY(0); }
+}

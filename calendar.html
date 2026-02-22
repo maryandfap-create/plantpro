@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+  <title>PlantPro — კალენდარი</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo-row">
+        <div class="sb-leaf">
+          <svg viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,.88)" stroke-width="1.6">
+            <path d="M10 18C10 18 3 12 3 7C3 4 6.5 2 10 2C13.5 2 17 4 17 7C17 12 10 18 10 18Z"/>
+            <path d="M10 18C10 12 10 5 10 2" stroke-width="1" stroke-dasharray="2.5 2"/>
+          </svg>
+        </div>
+        <div>
+          <div class="sb-title">PlantPro</div>
+          <div class="sb-edition">Business Edition</div>
+        </div>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sec">მთავარი</div>
+      <a class="sb-link" href="index.html"><span class="sb-ico">🪴</span>მცენარეები</a>
+      <a class="sb-link active" href="calendar.html">
+        <span class="sb-ico">📅</span>კალენდარი
+        <span class="sb-pill" id="sb-badge" style="display:none">0</span>
+      </a>
+      <a class="sb-link" href="supplies.html"><span class="sb-ico">🛒</span>მარაგი</a>
+      <div class="sb-sec">ბიზნესი</div>
+      <a class="sb-link" href="finance.html"><span class="sb-ico">💰</span>ფინანსები</a>
+      <a class="sb-link" href="treatments.html"><span class="sb-ico">🔬</span>მოვლა</a>
+      <a class="sb-link" href="sales.html"><span class="sb-ico">📦</span>რეალიზაცია</a>
+      <div class="sb-sec">სხვა</div>
+      <a class="sb-link" href="advisor.html"><span class="sb-ico">💊</span>მრჩეველი</a>
+      <a class="sb-link" href="ai.html"><span class="sb-ico">🤖</span>AI დიაგნოზი</a>
+    </nav>
+    <div class="sb-foot">
+      <select class="sb-select" id="sb-scale">
+        <option value="large">🏭 დიდი სანერგე</option>
+        <option value="small">🏡 მცირე სანერგე</option>
+        <option value="personal">🌱 პირადი</option>
+      </select>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="screen">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">კალენდარი</h1>
+          <p class="page-sub">დავალებები და მოვლის განრიგი</p>
+        </div>
+        <button class="btn-primary" id="btn-add-task">＋ დავალება</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="seg-group">
+          <button class="seg active" data-filter="all">ყველა</button>
+          <button class="seg" data-filter="pruning">✂️ გასხვლა</button>
+          <button class="seg" data-filter="repot">🪴 გადარგვა</button>
+          <button class="seg" data-filter="fertilize">🌿 სასუქი</button>
+          <button class="seg" data-filter="spray">💧 შეწავლა</button>
+          <button class="seg" data-filter="water">🚿 მორწყვა</button>
+        </div>
+      </div>
+
+      <!-- OVERDUE SECTION -->
+      <div class="section-label danger" id="overdue-label" style="display:none">⚠️ ვადაგასული</div>
+      <div class="list-container" id="overdue-list"></div>
+
+      <!-- ALL TASKS -->
+      <div class="section-label">📋 ყველა დავალება</div>
+      <div class="list-container" id="task-list"></div>
+
+    </div><!-- /screen -->
+
+    <nav class="tabbar">
+      <a class="tbi" href="index.html"><span class="tbi-ico">🪴</span><span class="tbi-lbl">მცენ.</span></a>
+      <a class="tbi active" href="calendar.html"><span class="tbi-ico">📅</span><span class="tbi-lbl">კალ.</span></a>
+      <div class="fab-wrap"><button class="fab" id="fab-btn">＋</button></div>
+      <a class="tbi" href="supplies.html"><span class="tbi-ico">🛒</span><span class="tbi-lbl">მარ.</span></a>
+      <a class="tbi" href="finance.html"><span class="tbi-ico">💰</span><span class="tbi-lbl">ფინ.</span></a>
+    </nav>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- SHEET: TASK -->
+  <div class="sheet" id="sheet-task">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2 class="sheet-title">📅 დავალება</h2>
+      <button class="sheet-close" id="sheet-task-close">✕</button>
+    </div>
+    <div class="sheet-body">
+
+      <div class="form-group">
+        <label class="form-label">სამუშაოს სახე</label>
+        <div class="type-grid type-grid-3" id="task-type-grid">
+          <button class="type-btn" data-value="pruning"><span class="type-btn-ico">✂️</span><span class="type-btn-lbl">გასხვლა</span></button>
+          <button class="type-btn" data-value="repot"><span class="type-btn-ico">🪴</span><span class="type-btn-lbl">გადარგვა</span></button>
+          <button class="type-btn" data-value="fertilize"><span class="type-btn-ico">🌿</span><span class="type-btn-lbl">სასუქი</span></button>
+          <button class="type-btn" data-value="spray"><span class="type-btn-ico">💧</span><span class="type-btn-lbl">შეწავლა</span></button>
+          <button class="type-btn" data-value="water"><span class="type-btn-ico">🚿</span><span class="type-btn-lbl">მორწყვა</span></button>
+          <button class="type-btn active" data-value="other"><span class="type-btn-ico">📝</span><span class="type-btn-lbl">სხვა</span></button>
+        </div>
+      </div>
+
+      <div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label">მცენარე</label>
+          <select class="form-input form-select" id="t-plant">
+            <option value="">ყველა / სხვა</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">შესრ. ვადა *</label>
+          <input class="form-input" type="date" id="t-date">
+        </div>
+      </div>
+
+      <div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label">პრეპ. / მასალა</label>
+          <input class="form-input" type="text" id="t-product" placeholder="NPK 10-10-10...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">განმეორება</label>
+          <select class="form-input form-select" id="t-recur">
+            <option value="none">ერთჯერადი</option>
+            <option value="weekly">ყოველ კვირა</option>
+            <option value="biweekly">ყოველ 2 კვირა</option>
+            <option value="monthly">ყოველ თვე</option>
+            <option value="seasonal">სეზონური</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">შენიშვნა</label>
+        <textarea class="form-input form-textarea" id="t-notes" rows="2"></textarea>
+      </div>
+
+      <input type="hidden" id="t-id">
+      <button class="btn-save" id="btn-save-task">✅ შენახვა</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <div class="toast-bar" id="toast-bar"></div>
+    <span class="toast-text" id="toast-text">—</span>
+  </div>
+
+  <script src="data/plantdb.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/init.js"></script>
+
+</body>
+</html>
