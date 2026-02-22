@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantPro — მთავარი</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #EEEAE3;
+            --forest: #3D5A45;
+            --forest-light: #4E7259;
+            --forest-pale: #E8EDE9;
+            --forest-muted: rgba(61,90,69,0.07);
+            --gold: #C4A35A;
+            --gold-light: #D4B87A;
+            --text-dark: #2A2A2A;
+            --text-mid: #5A5A5A;
+            --text-light: #8A8A8A;
+            --white: #FFFFFF;
+            --sidebar-w: 240px;
+            /* type colors */
+            --flower: #C4715A;
+            --flower-bg: rgba(196,113,90,0.1);
+            --fruit: #5A8A5E;
+            --fruit-bg: rgba(90,138,94,0.1);
+            --cactus: #8A7A5A;
+            --cactus-bg: rgba(138,122,90,0.1);
+            --indoor: #5A7A8A;
+            --indoor-bg: rgba(90,122,138,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--forest);
+            min-height: 100vh;
+            position: fixed;
+            left: 0; top: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 50;
+        }
+
+        .sidebar-logo {
+            padding: 32px 28px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            color: var(--white);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span { color: var(--gold-light); }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.45);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            padding: 12px 12px 6px;
+            margin-top: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
+            font-weight: 400;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.08);
+            color: var(--white);
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.12);
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .nav-item .icon {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .nav-item.coming-soon {
+            opacity: 0.5;
+            cursor: default;
+            position: relative;
+        }
+
+        .coming-badge {
+            margin-left: auto;
+            font-size: 0.6rem;
+            background: rgba(196,163,90,0.25);
+            color: var(--gold-light);
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .sidebar-footer {
+            padding: 20px 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.07);
+        }
+
+        .user-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .user-plan {
+            font-size: 0.68rem;
+            color: var(--gold-light);
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            margin-left: var(--sidebar-w);
+            flex: 1;
+            padding: 36px 40px;
+            min-height: 100vh;
+        }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 36px;
+        }
+
+        .page-title-group {}
+
+        .page-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.9rem;
+            color: var(--forest);
+            font-weight: 700;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-sm {
+            padding: 9px 20px;
+            border-radius: 7px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-sm-primary {
+            background: var(--forest);
+            color: var(--white);
+        }
+
+        .btn-sm-primary:hover { background: var(--forest-light); }
+
+        .btn-sm-outline {
+            background: var(--white);
+            color: var(--text-mid);
+            border: 1.5px solid rgba(0,0,0,0.1);
+        }
+
+        .btn-sm-outline:hover { border-color: var(--forest); color: var(--forest); }
+
+        /* ===== STAT CARDS ===== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 22px 24px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-sub {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .stat-change-up { color: #3D8B5E; font-weight: 500; }
+        .stat-change-down { color: #B84A3D; font-weight: 500; }
+
+        /* ===== GRID LAYOUT ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 20px;
+        }
+
+        .content-left { display: flex; flex-direction: column; gap: 20px; }
+        .content-right { display: flex; flex-direction: column; gap: 20px; }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card-header {
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-action {
+            font-size: 0.78rem;
+            color: var(--forest);
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .card-action:hover { opacity: 0.7; }
+
+        .card-body { padding: 20px 24px; }
+
+        /* ===== PLANTS TABLE ===== */
+        .plants-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .plants-table th {
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            padding: 0 0 14px;
+        }
+
+        .plants-table td {
+            padding: 12px 0;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            font-size: 0.875rem;
+            vertical-align: middle;
+        }
+
+        .plant-type-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .plant-name {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .plant-species {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            display: block;
+            margin-top: 1px;
+        }
+
+        .type-chip {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.73rem;
+            font-weight: 600;
+        }
+
+        .type-flower { background: var(--flower-bg); color: var(--flower); }
+        .type-fruit { background: var(--fruit-bg); color: var(--fruit); }
+        .type-cactus { background: var(--cactus-bg); color: var(--cactus); }
+        .type-indoor { background: var(--indoor-bg); color: var(--indoor); }
+
+        .status-dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .dot { width: 7px; height: 7px; border-radius: 50%; }
+        .dot-green { background: #3D8B5E; }
+        .dot-amber { background: #C4963A; }
+        .dot-red { background: #B84A3D; }
+        .status-dot.green { color: #3D8B5E; }
+        .status-dot.amber { color: #C4963A; }
+        .status-dot.red { color: #B84A3D; }
+
+        /* ===== TASKS ===== */
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: var(--cream);
+            transition: background 0.15s;
+        }
+
+        .task-item:hover { background: var(--forest-pale); }
+
+        .task-check {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(61,90,69,0.3);
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .task-check:hover {
+            border-color: var(--forest);
+            background: var(--forest-pale);
+        }
+
+        .task-check.done {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: var(--white);
+            font-size: 0.65rem;
+        }
+
+        .task-content { flex: 1; }
+
+        .task-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .task-title.done-text { text-decoration: line-through; color: var(--text-light); }
+
+        .task-meta {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 3px;
+        }
+
+        .task-urgent { background: rgba(184,74,61,0.06); }
+
+        /* ===== MINI CALENDAR ===== */
+        .mini-cal { }
+
+        .cal-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .cal-month {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .cal-arrow {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.15s;
+        }
+
+        .cal-arrow:hover { background: var(--cream); color: var(--forest); }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-day-label {
+            text-align: center;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            padding: 4px 0;
+            text-transform: uppercase;
+        }
+
+        .cal-day {
+            text-align: center;
+            padding: 6px 0;
+            font-size: 0.82rem;
+            color: var(--text-mid);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .cal-day:hover { background: var(--cream); }
+
+        .cal-day.today {
+            background: var(--forest);
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .cal-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        .cal-day.other-month { color: rgba(0,0,0,0.2); }
+
+        /* ===== AI PLACEHOLDER ===== */
+        .ai-placeholder {
+            background: linear-gradient(135deg, var(--forest) 0%, #2E4535 100%);
+            border-radius: 16px;
+            padding: 28px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-placeholder::before {
+            content: '🤖';
+            position: absolute;
+            font-size: 5rem;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.12;
+        }
+
+        .ai-placeholder-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(196,163,90,0.2);
+            border: 1px solid rgba(196,163,90,0.3);
+            border-radius: 100px;
+            padding: 4px 12px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin-bottom: 16px;
+            letter-spacing: 0.04em;
+        }
+
+        .ai-placeholder h3 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .ai-placeholder p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+            font-weight: 300;
+            max-width: 260px;
+        }
+
+        .ai-features {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ai-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .ai-feature::before {
+            content: '·';
+            color: var(--gold-light);
+            font-size: 1.2rem;
+            line-height: 0;
+        }
+
+        .ai-notify-btn {
+            margin-top: 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.8);
+            padding: 9px 18px;
+            border-radius: 7px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .ai-notify-btn:hover {
+            background: rgba(255,255,255,0.16);
+            color: var(--white);
+        }
+
+        /* ===== WATERING PROGRESS ===== */
+        .watering-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .water-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .water-icon {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .water-info { flex: 1; min-width: 0; }
+
+        .water-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .water-days {
+            font-size: 0.72rem;
+            color: var(--text-light);
+        }
+
+        .water-bar {
+            width: 80px;
+            height: 6px;
+            background: rgba(0,0,0,0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .water-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .fill-good { background: var(--fruit); }
+        .fill-warn { background: var(--gold); }
+        .fill-urgent { background: var(--flower); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1100px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 760px) {
+            .sidebar { transform: translateX(-100%); }
+            .main { margin-left: 0; padding: 20px; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <div class="logo-text">Plant<span>Pro</span></div>
+        <div class="logo-sub">Home Garden</div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-section-label">მთავარი</div>
+        <a href="home.html" class="nav-item active">
+            <span class="icon">🏠</span> მთავარი
+        </a>
+        <a href="calendar.html" class="nav-item">
+            <span class="icon">📅</span> კალენდარი
+        </a>
+
+        <div class="nav-section-label">მცენარეები</div>
+        <a href="index.html" class="nav-item">
+            <span class="icon">📦</span> ინვენტარი
+        </a>
+        <a href="treatments.html" class="nav-item">
+            <span class="icon">🧪</span> მკურნალობა
+        </a>
+        <a href="supplies.html" class="nav-item">
+            <span class="icon">🛍️</span> მარაგები
+        </a>
+
+        <div class="nav-section-label">ანალიზი</div>
+        <a href="advisor.html" class="nav-item">
+            <span class="icon">💡</span> მრჩეველი
+        </a>
+        <div class="nav-item coming-soon">
+            <span class="icon">🤖</span> AI ასისტენტი
+            <span class="coming-badge">მალე</span>
+        </div>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="user-pill">
+            <div class="user-avatar">მ</div>
+            <div>
+                <div class="user-name">მომხმარებელი</div>
+                <div class="user-plan">Free გეგმა</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="page-title-group">
+            <div class="page-date" id="todayDate">დღეს, 2025 წელი</div>
+            <h1 class="page-title">გამარჯობა, მებაღე 🌿</h1>
+        </div>
+        <div class="header-actions">
+            <button class="btn-sm btn-sm-outline">📤 ექსპორტი</button>
+            <button class="btn-sm btn-sm-primary" onclick="document.getElementById('addModal').style.display='flex'">+ მცენარის დამატება</button>
+        </div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">🌿 სულ მცენარე</div>
+            <div class="stat-value">47</div>
+            <div class="stat-sub"><span class="stat-change-up">+3 ამ კვირას</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">💧 დღეს სარწყავი</div>
+            <div class="stat-value">8</div>
+            <div class="stat-sub">5 დამატებული <span class="stat-change-down">3 გადაცილებული</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">⚠️ საყურადღებო</div>
+            <div class="stat-value">3</div>
+            <div class="stat-sub">შეამოწმე ახლავე</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">✅ ამოცანები</div>
+            <div class="stat-value">12</div>
+            <div class="stat-sub">5 შესრულებული დღეს</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT GRID -->
+    <div class="content-grid">
+
+        <!-- LEFT COLUMN -->
+        <div class="content-left">
+
+            <!-- PLANTS OVERVIEW -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🌱 ბოლო მცენარეები</div>
+                    <a href="index.html" class="card-action">ყველა ნახვა →</a>
+                </div>
+                <div class="card-body" style="padding: 8px 24px 20px;">
+                    <table class="plants-table">
+                        <thead>
+                            <tr>
+                                <th>სახელი</th>
+                                <th>ტიპი</th>
+                                <th>რაოდენობა</th>
+                                <th>სტატუსი</th>
+                                <th>ბოლო მოვლა</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="plant-name">
+                                        <span class="plant-type-dot" style="background: var(--flower);"></span>
+                                        ვარდი — Teahouse
+                                        <span class="plant-species">Rosa × hybrida</span>
+                                    </div>
+                                </td>
+                                <td><span class="type-chip type-flower">ყვავილი</span></td>
+                                <td>12</td>
+                                <td><span class="status-dot green"><span class="dot dot-green"></span>კარგი</span></td>
+                                <td style="color: var(--text-light); font-size: 0.8rem;">2 დ. წინ</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="plant-name">
+                                        <span class="plant-type-dot" style="background: var(--fruit);"></span>
+                                        ლეღვი — Brown Turkey
+                                        <span class="plant-species">Ficus carica</span>
+                                    </div>
+                                </td>
+                                <td><span class="type-chip type-fruit">ხეხილი</span></td>
+                                <td>3</td>
+                                <td><span class="status-dot amber"><span class="dot dot-amber"></span>ყურადღება</span></td>
+                                <td style="color: var(--text-light); font-size: 0.8rem;">5 დ. წინ</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="plant-name">
+                                        <span class="plant-type-dot" style="background: var(--cactus);"></span>
+                                        კაქტუსი — Desert Rose
+                                        <span class="plant-species">Adenium obesum</span>
+                                    </div>
+                                </td>
+                                <td><span class="type-chip type-cactus">კაქტუსი</span></td>
+                                <td>7</td>
+                                <td><span class="status-dot red"><span class="dot dot-red"></span>სარწყავია</span></td>
+                                <td style="color: var(--text-light); font-size: 0.8rem;">11 დ. წინ</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="plant-name">
+                                        <span class="plant-type-dot" style="background: var(--indoor);"></span>
+                                        მონსტერა
+                                        <span class="plant-species">Monstera deliciosa</span>
+                                    </div>
+                                </td>
+                                <td><span class="type-chip type-indoor">ოთახი</span></td>
+                                <td>2</td>
+                                <td><span class="status-dot green"><span class="dot dot-green"></span>კარგი</span></td>
+                                <td style="color: var(--text-light); font-size: 0.8rem;">1 დ. წინ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TASKS -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">✅ დღევანდელი ამოცანები</div>
+                    <a href="calendar.html" class="card-action">კალენდარი →</a>
+                </div>
+                <div class="card-body">
+                    <div class="task-list">
+                        <div class="task-item task-urgent">
+                            <div class="task-check" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">💧 Desert Rose — სარწყავია (11 დ. გადაცილება)</div>
+                                <div class="task-meta">⚠️ სასწრაფო · კაქტუსი</div>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-check" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">🌿 ლეღვი — სასუქი NPK 10-10-10</div>
+                                <div class="task-meta">მოვლა · ხეხილი</div>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-check" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">🪴 ვარდი — ახალი ტოტების შეჭრა</div>
+                                <div class="task-meta">სეზონური · ყვავილი</div>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-check done" onclick="toggleTask(this)">✓</div>
+                            <div class="task-content">
+                                <div class="task-title done-text">🌊 მონსტერა — წყლის შეცვლა</div>
+                                <div class="task-meta" style="color: var(--text-light);">შესრულებულია 10:30-ზე</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="content-right">
+
+            <!-- MINI CALENDAR -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📅 კალენდარი</div>
+                    <a href="calendar.html" class="card-action">სრული →</a>
+                </div>
+                <div class="card-body">
+                    <div class="cal-nav">
+                        <button class="cal-arrow">‹</button>
+                        <div class="cal-month" id="calMonth">ივლისი 2025</div>
+                        <button class="cal-arrow">›</button>
+                    </div>
+                    <div class="cal-grid" id="calGrid">
+                        <!-- JS fills this -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- WATERING TRACKER -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">💧 სარწყავი განრიგი</div>
+                </div>
+                <div class="card-body">
+                    <div class="watering-list">
+                        <div class="water-item">
+                            <div class="water-icon">🌵</div>
+                            <div class="water-info">
+                                <div class="water-name">Desert Rose</div>
+                                <div class="water-days">11 დღე გადაცილება</div>
+                            </div>
+                            <div class="water-bar"><div class="water-fill fill-urgent" style="width:100%"></div></div>
+                        </div>
+                        <div class="water-item">
+                            <div class="water-icon">🌳</div>
+                            <div class="water-info">
+                                <div class="water-name">ლეღვი</div>
+                                <div class="water-days">2 დღეში</div>
+                            </div>
+                            <div class="water-bar"><div class="water-fill fill-warn" style="width:65%"></div></div>
+                        </div>
+                        <div class="water-item">
+                            <div class="water-icon">🌸</div>
+                            <div class="water-info">
+                                <div class="water-name">ვარდი</div>
+                                <div class="water-days">4 დღეში</div>
+                            </div>
+                            <div class="water-bar"><div class="water-fill fill-good" style="width:35%"></div></div>
+                        </div>
+                        <div class="water-item">
+                            <div class="water-icon">🍃</div>
+                            <div class="water-info">
+                                <div class="water-name">მონსტერა</div>
+                                <div class="water-days">6 დღეში</div>
+                            </div>
+                            <div class="water-bar"><div class="water-fill fill-good" style="width:15%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI PLACEHOLDER -->
+            <div class="ai-placeholder">
+                <div class="ai-placeholder-badge">⏳ მალე დაემატება</div>
+                <h3>AI მრჩეველი</h3>
+                <p>ხელოვნური ინტელექტი გაანალიზებს თქვენს ბაღს და მოგცემს პერსონალურ რჩევებს.</p>
+                <div class="ai-features">
+                    <div class="ai-feature">ოპტიმალური სარწყავი განრიგი</div>
+                    <div class="ai-feature">დაავადებების ადრეული გამოვლენა</div>
+                    <div class="ai-feature">სეზონური მოვლის გეგმა</div>
+                </div>
+                <button class="ai-notify-btn" onclick="aiNotify(this)">
+                    🔔 გამაფრთხილე გახსნისას
+                </button>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<!-- ADD MODAL -->
+<div id="addModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:200; align-items:center; justify-content:center;">
+    <div style="background:var(--white); border-radius:20px; padding:36px; width:480px; max-width:90vw; position:relative; animation: fadeUp 0.25s ease;">
+        <button onclick="document.getElementById('addModal').style.display='none'" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--text-light);">✕</button>
+        <h2 style="font-family:'Playfair Display',serif; font-style:italic; color:var(--forest); margin-bottom:24px; font-size:1.4rem;">ახალი მცენარე</h2>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div>
+                    <label style="font-size:0.78rem; font-weight:600; color:var(--text-mid); display:block; margin-bottom:5px;">სახელი</label>
+                    <input type="text" placeholder="მ.შ. ვარდი" style="width:100%; padding:10px 14px; border:1.5px solid rgba(61,90,69,0.15); border-radius:7px; font-family:'Inter',sans-serif; font-size:0.875rem; outline:none; background:var(--cream);">
+                </div>
+                <div>
+                    <label style="font-size:0.78rem; font-weight:600; color:var(--text-mid); display:block; margin-bottom:5px;">ტიპი</label>
+                    <select style="width:100%; padding:10px 14px; border:1.5px solid rgba(61,90,69,0.15); border-radius:7px; font-family:'Inter',sans-serif; font-size:0.875rem; outline:none; background:var(--cream);">
+                        <option>ყვავილი</option>
+                        <option>ხეხილი</option>
+                        <option>კაქტუსი</option>
+                        <option>ოთახის მცენარე</option>
+                    </select>
+                </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div>
+                    <label style="font-size:0.78rem; font-weight:600; color:var(--text-mid); display:block; margin-bottom:5px;">რაოდენობა</label>
+                    <input type="number" placeholder="1" style="width:100%; padding:10px 14px; border:1.5px solid rgba(61,90,69,0.15); border-radius:7px; font-family:'Inter',sans-serif; font-size:0.875rem; outline:none; background:var(--cream);">
+                </div>
+                <div>
+                    <label style="font-size:0.78rem; font-weight:600; color:var(--text-mid); display:block; margin-bottom:5px;">სარწყავი (დღე)</label>
+                    <input type="number" placeholder="7" style="width:100%; padding:10px 14px; border:1.5px solid rgba(61,90,69,0.15); border-radius:7px; font-family:'Inter',sans-serif; font-size:0.875rem; outline:none; background:var(--cream);">
+                </div>
+            </div>
+            <div>
+                <label style="font-size:0.78rem; font-weight:600; color:var(--text-mid); display:block; margin-bottom:5px;">შენიშვნა</label>
+                <textarea placeholder="დამატებითი ინფორმაცია..." style="width:100%; padding:10px 14px; border:1.5px solid rgba(61,90,69,0.15); border-radius:7px; font-family:'Inter',sans-serif; font-size:0.875rem; outline:none; background:var(--cream); resize:vertical; min-height:70px;"></textarea>
+            </div>
+            <button class="btn-sm btn-sm-primary" style="align-self:flex-end; padding:12px 28px; font-size:0.9rem;">🌱 შენახვა</button>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to { opacity:1; transform:translateY(0); }
+}
+</style>
+
+<script>
+    // Date
+    const months = ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'];
+    const days = ['კვი','ორშ','სამ','ოთხ','ხუთ','პარ','შაბ'];
+    const now = new Date();
+    document.getElementById('todayDate').textContent = `დღეს, ${now.getDate()} ${months[now.getMonth()]}, ${now.getFullYear()}`;
+
+    // Mini Calendar
+    let calYear = now.getFullYear();
+    let calMonth = now.getMonth();
+    const eventDays = [3, 7, 12, 15, 18, 22, 25];
+
+    function renderCal() {
+        document.getElementById('calMonth').textContent = `${months[calMonth]} ${calYear}`;
+        const grid = document.getElementById('calGrid');
+        grid.innerHTML = '';
+        days.forEach(d => {
+            const el = document.createElement('div');
+            el.className = 'cal-day-label';
+            el.textContent = d;
+            grid.appendChild(el);
+        });
+        const firstDay = new Date(calYear, calMonth, 1).getDay();
+        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+        const prevDays = new Date(calYear, calMonth, 0).getDate();
+        const startOffset = (firstDay + 6) % 7;
+
+        for (let i = startOffset - 1; i >= 0; i--) {
+            const el = document.createElement('div');
+            el.className = 'cal-day other-month';
+            el.textContent = prevDays - i;
+            grid.appendChild(el);
+        }
+        for (let d = 1; d <= daysInMonth; d++) {
+            const el = document.createElement('div');
+            el.className = 'cal-day';
+            if (d === now.getDate() && calMonth === now.getMonth() && calYear === now.getFullYear()) el.classList.add('today');
+            if (eventDays.includes(d)) el.classList.add('has-event');
+            el.textContent = d;
+            grid.appendChild(el);
+        }
+    }
+
+    renderCal();
+
+    document.querySelectorAll('.cal-arrow').forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+            calMonth += i === 0 ? -1 : 1;
+            if (calMonth < 0) { calMonth = 11; calYear--; }
+            if (calMonth > 11) { calMonth = 0; calYear++; }
+            renderCal();
+        });
+    });
+
+    // Task toggle
+    function toggleTask(el) {
+        const isDone = el.classList.toggle('done');
+        el.textContent = isDone ? '✓' : '';
+        const title = el.nextElementSibling.querySelector('.task-title');
+        title.classList.toggle('done-text', isDone);
+    }
+
+    // AI notify
+    function aiNotify(btn) {
+        btn.textContent = '✓ დარეგისტრირდი';
+        btn.style.background = 'rgba(196,163,90,0.2)';
+        btn.style.borderColor = 'rgba(196,163,90,0.4)';
+        btn.style.color = 'var(--gold-light)';
+        btn.disabled = true;
+    }
+
+    // Close modal on backdrop click
+    document.getElementById('addModal').addEventListener('click', function(e) {
+        if (e.target === this) this.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>
