@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+  <title>PlantPro — მცენარეები</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/plants.css">
+</head>
+<body>
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo-row">
+        <div class="sb-leaf">
+          <svg viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,.88)" stroke-width="1.6">
+            <path d="M10 18C10 18 3 12 3 7C3 4 6.5 2 10 2C13.5 2 17 4 17 7C17 12 10 18 10 18Z"/>
+            <path d="M10 18C10 12 10 5 10 2" stroke-width="1" stroke-dasharray="2.5 2"/>
+          </svg>
+        </div>
+        <div>
+          <div class="sb-title">PlantPro</div>
+          <div class="sb-edition">Business Edition</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-sec">მთავარი</div>
+      <a class="sb-link active" href="index.html">
+        <span class="sb-ico">🪴</span>მცენარეები
+        <span class="sb-plus" id="sb-plus-plant">＋</span>
+      </a>
+      <a class="sb-link" href="calendar.html">
+        <span class="sb-ico">📅</span>კალენდარი
+        <span class="sb-pill" id="sb-badge" style="display:none">0</span>
+      </a>
+      <a class="sb-link" href="supplies.html">
+        <span class="sb-ico">🛒</span>მარაგი
+      </a>
+      <div class="sb-sec">ბიზნესი</div>
+      <a class="sb-link" href="finance.html">
+        <span class="sb-ico">💰</span>ფინანსები
+      </a>
+      <a class="sb-link" href="treatments.html">
+        <span class="sb-ico">🔬</span>მოვლა
+      </a>
+      <a class="sb-link" href="sales.html">
+        <span class="sb-ico">📦</span>რეალიზაცია
+      </a>
+      <div class="sb-sec">სხვა</div>
+      <a class="sb-link" href="advisor.html">
+        <span class="sb-ico">💊</span>მრჩეველი
+      </a>
+      <a class="sb-link" href="ai.html">
+        <span class="sb-ico">🤖</span>AI დიაგნოზი
+      </a>
+    </nav>
+
+    <div class="sb-foot">
+      <select class="sb-select" id="sb-scale">
+        <option value="large">🏭 დიდი სანერგე</option>
+        <option value="small">🏡 მცირე სანერგე</option>
+        <option value="personal">🌱 პირადი</option>
+      </select>
+      <div class="sb-btns">
+        <button class="sb-btn" id="btn-export">⬇️ ექსპ.</button>
+        <button class="sb-btn" id="btn-import-trigger">⬆️ იმპ.</button>
+        <input type="file" id="btn-import" accept=".json" style="display:none">
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="main">
+
+    <!-- STAT STRIP -->
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <div class="stat-n green" id="ss-total">0</div>
+        <div class="stat-l">მცენარე</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-n" id="ss-growing">0</div>
+        <div class="stat-l">ზრდაში</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-n darkgreen" id="ss-ready">0</div>
+        <div class="stat-l">მზადა</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-n green" id="ss-profit">0₾</div>
+        <div class="stat-l">მოგება</div>
+      </div>
+    </div>
+
+    <!-- SCREEN -->
+    <div class="screen">
+
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">მცენარეები</h1>
+          <p class="page-sub" id="plants-sub">0 მცენარე</p>
+        </div>
+        <button class="btn-primary" id="btn-add-plant">＋ დამატება</button>
+      </div>
+
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <div class="search-box">
+          <span class="search-ico">🔍</span>
+          <input type="text" id="search-input" placeholder="ძიება სახელით...">
+        </div>
+        <div class="seg-group">
+          <button class="seg active" data-filter="all">ყველა</button>
+          <button class="seg" data-filter="growing">🌱 ზრდ.</button>
+          <button class="seg" data-filter="ready">✅ მზ.</button>
+          <button class="seg" data-filter="sold">💰 გაყ.</button>
+        </div>
+      </div>
+
+      <!-- PLANT GRID -->
+      <div class="plant-grid" id="plant-grid">
+        <!-- JS renders here -->
+      </div>
+
+    </div><!-- /screen -->
+
+    <!-- ═══ MOBILE TAB BAR ═══ -->
+    <nav class="tabbar">
+      <a class="tbi active" href="index.html">
+        <span class="tbi-ico">🪴</span>
+        <span class="tbi-lbl">მცენ.</span>
+      </a>
+      <a class="tbi" href="calendar.html">
+        <span class="tbi-ico">📅</span>
+        <span class="tbi-lbl">კალ.</span>
+      </a>
+      <div class="fab-wrap">
+        <button class="fab" id="fab-btn">＋</button>
+      </div>
+      <a class="tbi" href="supplies.html">
+        <span class="tbi-ico">🛒</span>
+        <span class="tbi-lbl">მარ.</span>
+      </a>
+      <a class="tbi" href="finance.html">
+        <span class="tbi-ico">💰</span>
+        <span class="tbi-lbl">ფინ.</span>
+      </a>
+    </nav>
+
+  </div><!-- /main -->
+
+  <!-- ═══ OVERLAY ═══ -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ═══ SHEET: ADD/EDIT PLANT ═══ -->
+  <div class="sheet" id="sheet-plant">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2 class="sheet-title" id="sheet-plant-title">🪴 მცენარის დამატება</h2>
+      <button class="sheet-close" id="sheet-plant-close">✕</button>
+    </div>
+    <div class="sheet-body">
+
+      <!-- REQUIRED -->
+      <div class="form-group">
+        <label class="form-label">სახელი *</label>
+        <input class="form-input" type="text" id="p-name" placeholder="ჰორტენზია, ვარდი, ლიმონი..." autocomplete="off">
+        <div class="autocomplete-list" id="p-autocomplete"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">ტიპი *</label>
+        <div class="type-grid" id="p-type-grid">
+          <button class="type-btn active" data-value="flower">
+            <span class="type-btn-ico">🌸</span>
+            <span class="type-btn-lbl">ყვავილი</span>
+          </button>
+          <button class="type-btn" data-value="fruit">
+            <span class="type-btn-ico">🍎</span>
+            <span class="type-btn-lbl">ხეხილი</span>
+          </button>
+          <button class="type-btn" data-value="cactus">
+            <span class="type-btn-ico">🌵</span>
+            <span class="type-btn-lbl">კაქტუსი</span>
+          </button>
+          <button class="type-btn" data-value="indoor">
+            <span class="type-btn-ico">🪴</span>
+            <span class="type-btn-lbl">Indoor</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- OPTIONAL TOGGLE -->
+      <button class="opt-toggle" id="opt-toggle-plant">
+        <span>➕ ქოთანი · ფასი · ადგილი...</span>
+        <span class="opt-arrow" id="opt-arrow-plant">▼</span>
+      </button>
+
+      <div class="opt-body" id="opt-body-plant">
+
+        <div class="form-group">
+          <label class="form-label">სახეობა (ლათ.)</label>
+          <input class="form-input" type="text" id="p-species" placeholder="Rosa damascena">
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">რაოდენობა</label>
+            <input class="form-input" type="number" id="p-qty" value="1" min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">დარგვის თარიღი</label>
+            <input class="form-input" type="date" id="p-date">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ქოთნის ზომა</label>
+          <div class="pot-tabs" id="pot-tabs">
+            <button class="pot-tab active" data-unit="cm">სმ</button>
+            <button class="pot-tab" data-unit="L">ლიტრი</button>
+            <button class="pot-tab" data-unit="wh">სიგ × სიმ</button>
+          </div>
+          <div id="pot-cm"><input class="form-input" type="number" id="p-pot-cm" placeholder="15 სმ"></div>
+          <div id="pot-L" style="display:none"><input class="form-input" type="number" id="p-pot-L" placeholder="2.5 ლ" step=".1"></div>
+          <div id="pot-wh" style="display:none">
+            <div class="form-row-2">
+              <input class="form-input" type="number" id="p-pot-w" placeholder="სიგ. სმ">
+              <input class="form-input" type="number" id="p-pot-h" placeholder="სიმ. სმ">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ადგილი</label>
+          <div class="loc-grid" id="p-loc-grid">
+            <button class="loc-btn active" data-value="greenhouse">
+              <span>🏡</span><span>სათბური</span>
+            </button>
+            <button class="loc-btn" data-value="outdoor">
+              <span>☀️</span><span>გარეთ</span>
+            </button>
+            <button class="loc-btn" data-value="indoor">
+              <span>🏠</span><span>სახლი</span>
+            </button>
+            <button class="loc-btn" data-value="shade">
+              <span>🌥️</span><span>ჩრდილი</span>
+            </button>
+          </div>
+          <input class="form-input" type="text" id="p-loc-txt" placeholder="სექცია, რიგი, სხვა..." style="margin-top:8px">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">წარმოშობა</label>
+          <div class="type-grid" id="p-origin-grid">
+            <button class="type-btn" data-value="cutting">
+              <span class="type-btn-ico">✂️</span><span class="type-btn-lbl">კალამი</span>
+            </button>
+            <button class="type-btn" data-value="seed">
+              <span class="type-btn-ico">🌱</span><span class="type-btn-lbl">თესლი</span>
+            </button>
+            <button class="type-btn" data-value="seedling">
+              <span class="type-btn-ico">🪴</span><span class="type-btn-lbl">ნერგი</span>
+            </button>
+            <button class="type-btn active" data-value="bought">
+              <span class="type-btn-ico">🛍️</span><span class="type-btn-lbl">შეძენა</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">თვითღირ. / ცალი (₾)</label>
+            <input class="form-input" type="number" id="p-cost" step=".01" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">გ. ფასი / ცალი (₾)</label>
+            <input class="form-input" type="number" id="p-sale" step=".01" placeholder="0.00">
+          </div>
+        </div>
+
+        <div class="totals-row" id="p-totals" style="display:none">
+          <div class="total-box">
+            <div class="total-label">ჯამ. თვითღ.</div>
+            <div class="total-value red" id="p-total-cost">—</div>
+          </div>
+          <div class="total-box">
+            <div class="total-label">ჯამ. გ. ფასი</div>
+            <div class="total-value green" id="p-total-sale">—</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">შენიშვნა</label>
+          <textarea class="form-input form-textarea" id="p-notes" rows="2" placeholder="სხვა ინფო..."></textarea>
+        </div>
+
+      </div><!-- /opt-body -->
+
+      <input type="hidden" id="p-id">
+      <button class="btn-save" id="btn-save-plant">✅ შენახვა</button>
+
+    </div><!-- /sheet-body -->
+  </div><!-- /sheet-plant -->
+
+  <!-- ═══ DETAIL PANEL ═══ -->
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-nav">
+      <button class="back-btn" id="detail-back">← მცენარეები</button>
+      <button class="detail-edit-btn" id="detail-edit">✏️ რედ.</button>
+    </div>
+
+    <div class="detail-hero" id="detail-hero">
+      <div class="detail-hero-icon" id="d-icon">🌿</div>
+      <h2 class="detail-name" id="d-name">—</h2>
+      <p class="detail-lat" id="d-lat">—</p>
+      <div class="detail-tags" id="d-tags"></div>
+    </div>
+
+    <div class="detail-tiles">
+      <div class="detail-tile">
+        <div class="detail-tile-label">თვითღ. / ჯამ.</div>
+        <div class="detail-tile-value red" id="d-cost">—</div>
+      </div>
+      <div class="detail-tile">
+        <div class="detail-tile-label">გ. ფასი / ჯამ.</div>
+        <div class="detail-tile-value green" id="d-sale">—</div>
+      </div>
+      <div class="detail-tile">
+        <div class="detail-tile-label">მოგება</div>
+        <div class="detail-tile-value" id="d-profit">—</div>
+      </div>
+      <div class="detail-tile">
+        <div class="detail-tile-label">ROI</div>
+        <div class="detail-tile-value" id="d-roi">—</div>
+      </div>
+    </div>
+
+    <h3 class="detail-section">⚠️ ცნობ. დაავადებები</h3>
+    <div id="d-diseases"></div>
+
+    <h3 class="detail-section">📋 ბოლო მოვლა</h3>
+    <div id="d-treatments" class="detail-treat-list"></div>
+
+    <h3 class="detail-section">⚡ სწრაფი მოქმედება</h3>
+    <div class="detail-actions">
+      <button class="detail-action" id="d-act-treat">
+        <span class="detail-action-ico">💊</span>
+        <span>მოვლა</span>
+      </button>
+      <button class="detail-action" id="d-act-task">
+        <span class="detail-action-ico">📅</span>
+        <span>დავალება</span>
+      </button>
+      <button class="detail-action" id="d-act-sale">
+        <span class="detail-action-ico">📦</span>
+        <span>გაყიდვა</span>
+      </button>
+      <button class="detail-action danger" id="d-act-delete">
+        <span class="detail-action-ico">🗑️</span>
+        <span>წაშლა</span>
+      </button>
+    </div>
+
+  </div><!-- /detail-panel -->
+
+  <!-- ═══ TOAST ═══ -->
+  <div class="toast" id="toast">
+    <div class="toast-bar" id="toast-bar"></div>
+    <span class="toast-text" id="toast-text">—</span>
+  </div>
+
+  <!-- ═══ SCRIPTS ═══ -->
+  <script src="data/plantdb.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/plants.js"></script>
+  <script src="js/init.js"></script>
+
+</body>
+</html>
