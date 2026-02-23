@@ -740,7 +740,7 @@
         </a>
 
         <div class="nav-section-label">მცენარეები</div>
-        <a href="index.html" class="nav-item">
+        <a href="app.html" class="nav-item">
             <span class="icon">📦</span> ინვენტარი
         </a>
         <a href="treatments.html" class="nav-item">
@@ -825,7 +825,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">🌱 ბოლო მცენარეები</div>
-                    <a href="index.html" class="card-action">ყველა ნახვა →</a>
+                    <a href="app.html" class="card-action">ყველა ნახვა →</a>
                 </div>
                 <div class="card-body" style="padding: 8px 24px 20px;">
                     <table class="plants-table">
@@ -1143,6 +1143,41 @@
     document.getElementById('addModal').addEventListener('click', function(e) {
         if (e.target === this) this.style.display = 'none';
     });
+</script>
+
+
+<!-- MOBILE TAB BAR -->
+<nav class="tabbar" style="display:none; position:fixed; bottom:0; left:0; right:0; height:60px; background:rgba(255,255,255,0.96); backdrop-filter:blur(16px); border-top:1px solid rgba(0,0,0,0.08); align-items:flex-start; padding-top:8px; z-index:100;">
+  <a class="tbi" href="home.html" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; color:#3D5A45; font-size:0.65rem; font-weight:600;">
+    <span style="font-size:1.3rem;">🏠</span>
+    <span>მთავარი</span>
+  </a>
+  <a class="tbi" href="app.html" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; color:#888; font-size:0.65rem;">
+    <span style="font-size:1.3rem;">🪴</span>
+    <span>მცენ.</span>
+  </a>
+  <a class="tbi" href="calendar.html" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; color:#888; font-size:0.65rem;">
+    <span style="font-size:1.3rem;">📅</span>
+    <span>კალ.</span>
+  </a>
+  <a class="tbi" href="supplies.html" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; color:#888; font-size:0.65rem;">
+    <span style="font-size:1.3rem;">🛒</span>
+    <span>მარ.</span>
+  </a>
+  <a class="tbi" href="finance.html" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; color:#888; font-size:0.65rem;">
+    <span style="font-size:1.3rem;">💰</span>
+    <span>ფინ.</span>
+  </a>
+</nav>
+
+<script>
+  // მობილურზე tabbar-ის ჩვენება
+  if (window.innerWidth <= 768) {
+    document.querySelector('.tabbar').style.display = 'flex';
+    document.querySelector('.sidebar').style.display = 'none';
+    document.querySelector('.main').style.marginLeft = '0';
+    document.querySelector('.main').style.paddingBottom = '70px';
+  }
 </script>
 
 </body>
