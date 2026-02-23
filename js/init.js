@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── DETECT CURRENT PAGE ── */
   const page = location.pathname.split('/').pop() || 'index.html';
 
-  if (page === 'index.html' || page === '') {
+  if (page === 'index.html' || page === 'app.html' || page === '') {
     initPlants();
   }
 
